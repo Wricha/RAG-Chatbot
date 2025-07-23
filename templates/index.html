@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CareerBuddy Chatbot</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>🎓 CareerBuddy – Your AI Career Mentor</h2>
+    <form id="query-form">
+      <input type="text" id="user-query" placeholder="Ask a career question..." required />
+      <button type="submit">Ask</button>
+    </form>
+    <div id="response-box">
+      <h4>💬 Response:</h4>
+      <p id="bot-response">Your answer will appear here.</p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('query-form');
+    const userInput = document.getElementById('user-query');
+    const responseBox = document.getElementById('bot-response');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const query = userInput.value;
+
+      responseBox.innerText = "Thinking...";
+
+      const res = await fetch("/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query })
+      });
+
+      const data = await res.json();
+      responseBox.innerText = data.answer || "No answer received.";
+      userInput.value = "";
+    });
+  </script>
+</body>
+</html>

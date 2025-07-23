@@ -1,0 +1,5 @@
+pinecone
+langchain
+python-dotenv
+fastapi
+uvicorn
