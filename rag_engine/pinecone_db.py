@@ -19,7 +19,7 @@ def init_pinecone():
             dimension=384,  # Replace with actual embedding dimension
             metric="cosine",
             spec=ServerlessSpec(
-                cloud="aws",  # or "gcp"
+                cloud="aws",  
                 region=os.getenv("PINECONE_ENVIRONMENT", "us-west-2")
             )
         )
