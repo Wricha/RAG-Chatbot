@@ -1,56 +1,12 @@
-# Virtual environments
+__pycache__/
 myvenv/
 .venv/
-env/
-ENV/
-.ENV/
-
-# Python cache
-__pycache__/
-*.py[cod]
-*.so
-
-# Environment variables
 .env
-.env.*
+rag_engine/__pycache__
 
-# Logs and local db
-*.log
-*.sqlite3
 
-# Jupyter Notebooks checkpoints
-.ipynb_checkpoints/
 
-# OS-generated files
-.DS_Store
-Thumbs.db
 
-# VS Code settings
-.vscode/
-
-# macOS metadata
-*.DS_Store
-
-# LFS or large files
-*.tar
-*.zip
-*.gz
-*.dylib
-*.exe
-*.dll
-
-# PIP
-pip-log.txt
-
-# Test coverage reports
-htmlcov/
-.coverage
-.tox/
-
-# PyInstaller
-dist/
-build/
-*.spec
 
 
 
