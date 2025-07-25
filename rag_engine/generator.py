@@ -14,23 +14,28 @@ memory = ConversationBufferMemory(return_messages=True)
 def generate_response(query, context):
 
     history = memory.load_memory_variables({})["history"]
-    messages = []
+    messages = [
+    {
+        "role": "system",
+        "content": (
+            "You are CareerBuddy, a smart and helpful career guidance assistant. "
+            "Use ONLY the context provided to answer the user's question. "
+            "Be concise and relevant."
+        )
+    }
+]
+
     for message in history:
         if isinstance(message, HumanMessage):
-            messages.append({"role":"user","content":message.content})
-
+            messages.append({"role": "user", "content": message.content})
         elif isinstance(message, AIMessage):
-            messages.append({"role":"assistant","content":message.content})    
-    prompt = f"""
-You are CareerBuddy, a smart and helpful career guidance assistant.
+            messages.append({"role": "assistant", "content": message.content})
 
-Use ONLY the context below to answer the user's question.
-Context: {context}
+    messages.append({
+    "role": "user",
+    "content": f"Context: {context}\n\nQuestion: {query}"
+})
 
-Question:{query}
-Answer:"""
-    
-    messages.append({"role":"user", "content":prompt})
 
     response = requests.post(
         GROQ_URL,
@@ -48,6 +53,8 @@ Answer:"""
     )
     response.raise_for_status()
     answer = response.json()["choices"][0]["message"]["content"]
+    answer = answer.replace("*", "").replace("**", "")
+
 
     memory.chat_memory.add_user_message(query)
     memory.chat_memory.add_ai_message(answer)

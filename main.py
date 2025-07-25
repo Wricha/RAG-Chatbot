@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware # type: ignore
 import os
 
 from dotenv import load_dotenv
@@ -17,20 +17,20 @@ embedder = get_embedding_model()
 
 app = FastAPI()
 
-# Static & templates setup
+
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
-# CORS (for JS fetch to work locally)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Use specific origins for production
+    allow_origins=["*"],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# API schema
+
 class Query(BaseModel):
     query: str
 

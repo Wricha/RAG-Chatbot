@@ -5,7 +5,7 @@ from pinecone import Pinecone, ServerlessSpec
 from langchain_community.vectorstores import Pinecone as LangchainPinecone
 from langchain_community.embeddings import HuggingFaceEmbeddings
 
-# Create Pinecone client instanceload_dotenv()
+
 load_dotenv()
 api_key = os.getenv("PINECONE_API_KEY")
 
@@ -16,14 +16,14 @@ def init_pinecone():
     if index_name not in pc.list_indexes().names():
         pc.create_index(
             name=index_name,
-            dimension=384,  # Replace with actual embedding dimension
+            dimension=384, 
             metric="cosine",
             spec=ServerlessSpec(
                 cloud="aws",  
                 region=os.getenv("PINECONE_ENVIRONMENT", "us-west-2")
             )
         )
-    return pc.Index(index_name)  # return the index object
+    return pc.Index(index_name)
 
 def upsert_chunks(index_name, chunks, embedder):
     index = pc.Index(index_name)
