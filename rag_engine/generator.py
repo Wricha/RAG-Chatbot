@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 from langchain.memory import ConversationBufferMemory
 from langchain.schema import HumanMessage, AIMessage
 
-
 load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
