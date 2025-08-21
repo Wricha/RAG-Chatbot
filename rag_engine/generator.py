@@ -35,7 +35,6 @@ def generate_response(query, context):
     "content": f"Context: {context}\n\nQuestion: {query}"
 })
 
-
     response = requests.post(
         GROQ_URL,
         headers={
@@ -47,13 +46,11 @@ def generate_response(query, context):
             "messages":messages,
             "max_tokens": 1000,
             "temperature": 0.74
-            
         }
     )
     response.raise_for_status()
     answer = response.json()["choices"][0]["message"]["content"]
     answer = answer.replace("*", "").replace("**", "")
-
 
     memory.chat_memory.add_user_message(query)
     memory.chat_memory.add_ai_message(answer)

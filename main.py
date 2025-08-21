@@ -17,7 +17,6 @@ embedder = get_embedding_model()
 
 app = FastAPI()
 
-
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
@@ -43,7 +42,7 @@ async def home(request: Request):
 async def load_onet_data(req: OnetRequest):
     docs=fetch_onet_career(req.occupation_code)
     chunks=split_documents(docs)
-    upsert_chunks(os.getenv("PINECONE_INDEX_NAME",chunks,embedder))
+    upsert_chunks(os.getenv("PINECONE_INDEX_NAME"),chunks,embedder)
     return{
         "status":"success",
         "message":f"O*NET data for {req.occupation_code} added to Pinecone",
